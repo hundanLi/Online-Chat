@@ -1,0 +1,20 @@
+# server
+server:
+  port: 8080
+  tomcat:
+    # 访问日志
+    accesslog:
+      enabled: true
+      pattern: common
+    basedir: ./
+    max-connections: 100
+    max-threads: 10
+    uri-encoding: utf-8
+    # 请求数据大小上限
+    max-swallow-size: 10MB
+    max-http-post-size: 10MB
+spring:
+  thymeleaf:
+    cache: false
+
+

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.lzlbog.chatting.mapper.UserMapper">
+
+    <!-- 包含角色查询映射结果 -->
+    <resultMap id="UserMap" type="club.lzlbog.chatting.entity.User">
+        <id column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <collection property="roles" resultMap="RoleMap"/>
+        <collection property="authorities" resultMap="AuthorityMap"/>
+    </resultMap>
+
+    <resultMap id="RoleMap" type="club.lzlbog.chatting.entity.Role">
+        <id column="role_id" property="roleId"/>
+        <result column="role_name" property="roleName"/>
+    </resultMap>
+    <resultMap id="AuthorityMap" type="club.lzlbog.chatting.entity.Authority">
+        <id column="authority_id" property="authorityId"/>
+        <result column="authority_name" property="authorityName"/>
+    </resultMap>
+    <select id="selectUserByUsername" resultMap="UserMap">
+        select
+            tbl_user.user_id           as user_id,
+            username,
+            password,
+            tbl_role.role_id           as role_id,
+            role_name,
+            tbl_authority.authority_id as authority_id,
+            authority_name
+        from tbl_user
+            left join tbl_user_role on tbl_user.user_id = tbl_user_role.user_id
+            left join tbl_role on tbl_role.role_id = tbl_user_role.role_id
+            left join tbl_role_authority on tbl_role.role_id = tbl_role_authority.role_id
+            left join tbl_authority on tbl_authority.authority_id = tbl_role_authority.authority_id
+        where username = #{username}
+    </select>
+
+    <!--根据id查询所有好友-->
+    <resultMap id="FriendMap" type="club.lzlbog.chatting.entity.User">
+        <id column="user_id" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="avatar_url" property="avatarUrl"/>
+        <result column="email" property="email"/>
+    </resultMap>
+    <select id="selectFriends" resultMap="FriendMap">
+        select
+            tu.user_id,
+            tu.username,
+            tu.avatar_url
+        from tbl_friendship tf
+            left join tbl_user tu on tu.username = tf.username2
+        where tf.username1 = #{username}
+    </select>
+
+    <select id="selectIdByUsername" resultType="java.lang.String">
+        select user_id
+        from tbl_user
+        where username = #{username}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.lzlbog.chatting.mapper.RoleMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="RoleMap" type="club.lzlbog.chatting.entity.Role">
+        <id column="role_id" property="roleId"/>
+        <result column="role_name" property="roleName"/>
+        <collection property="authorities" resultMap="AuthorityMap"/>
+    </resultMap>
+
+    <resultMap id="AuthorityMap" type="club.lzlbog.chatting.entity.Authority">
+        <id column="authorityId" property="authorityId"/>
+        <result column="authorityName" property="authorityName"/>
+    </resultMap>
+
+    <select id="selectByRoleId" resultMap="RoleMap">
+        select
+            tr.role_id        as role_id,
+            tr.role_name      as role_name,
+            ta.authority_id   as authorityId,
+            ta.authority_name as authorityName
+        from tbl_role tr
+            left join tbl_role_authority tra on tr.role_id = tra.role_id
+            left join tbl_authority ta on ta.authority_id = tra.authority_id
+        where tr.role_id = #{roleId}
+    </select>
+
+</mapper>

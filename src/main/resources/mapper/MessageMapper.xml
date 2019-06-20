@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.lzlbog.chatting.mapper.MessageMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="club.lzlbog.chatting.entity.Message">
+        <id column="message_id" property="messageId"/>
+        <result column="message_content" property="messageContent"/>
+        <result column="message_status" property="messageStatus"/>
+        <result column="message_sender" property="messageSender"/>
+        <result column="message_receiver" property="messageReceiver"/>
+        <result column="message_time" property="messageTime"/>
+    </resultMap>
+
+    <resultMap id="OwnerMap" type="club.lzlbog.chatting.entity.Message">
+        <id column="message_id" property="messageId"/>
+        <result column="message_status" property="messageStatus"/>
+        <result column="message_sender" property="messageSender"/>
+        <result column="message_receiver" property="messageReceiver"/>
+    </resultMap>
+    <!--更改消息状态-->
+    <update id="updateStatusByBatch">
+        update tbl_message
+        set message_status = #{newStatus}
+        where message_id in
+        <foreach collection="ids" index="index" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </update>
+    <!--查找消息owner-->
+    <select id="selectMessageWithOwner" resultMap="OwnerMap">
+        select
+            message_id,
+            message_status,
+            message_sender,
+            message_receiver
+        from tbl_message
+        where message_id = #{messageId};
+    </select>
+
+</mapper>

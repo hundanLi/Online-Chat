@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{base :: header}">
+</head>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign in</title>
+    <link rel="stylesheet" href="/static/css/sign.css">
+</head>
+<body>
+<div class="container">
+    <form id="login-form" class="form-sign" onsubmit="return signin(this)">
+        <h2 class="form-signin-heading">Please Sign in</h2>
+        <div class="form-group pull-left">
+            <a href="/signup">Not Register?</a>
+        </div>
+        <label for="username" class="sr-only">Username</label>
+        <input type="text" id="username" name="username" minlength="2" maxlength="16" class="form-control" placeholder="Username" required>
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" id="password" name="password" minlength="8" maxlength="16" class="form-control" placeholder="Password" required>
+
+        <div>
+            <div class="form-group pull-left">
+                <label>
+                    <input type="checkbox" id="remember-me" name="remember-me"> Remember me
+                </label>
+            </div>
+            <div class="form-group pull-right">
+                <a href="/resetPassword">Forgot Password?</a>
+            </div>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+        <hr>
+        <div style="margin-top: 20px">
+            <a href="/swagger-ui.html">API文档</a>
+        </div>
+    </form>
+
+    <!--<button class="btn btn-lg btn-primary btn-block" type="button" onclick="cors()">CORS TEST</button>-->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="mySmallModalLabel">提示！</h4>
+                </div>
+                <div class="modal-body" id="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- /container -->
+<script type="text/javascript" src="/static/js/custom/signin.js"></script>
+</body>
+</html>

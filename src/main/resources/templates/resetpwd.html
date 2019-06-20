@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{base :: header}"></head>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Reset Your Password</title>
+    <link rel="stylesheet" href="/static/css/sign.css">
+</head>
+<body>
+<div class="container">
+    <form id="resetPwd-form" class="form-sign" onsubmit="return resetPwd(this)">
+        <h2 class="form-signin-heading">Reset Password</h2>
+        <div class="form-group pull-left">
+            Remember? <a href="/signin">Sign in</a>
+        </div>
+        <label for="email" class="sr-only">Email Address</label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="Email Address" required>
+
+        <label for="validationCode" class="sr-only">Validation Code</label>
+        <input type="text" id="validationCode" name="validationCode" minlength="6" maxlength="6" class="form-control"
+               placeholder="Validation Code" required>
+
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" id="password" name="newPassword" minlength="8" maxlength="16" class="form-control"
+               placeholder="Password" required>
+
+        <label for="repeatPassword" class="sr-only">Repeat Password</label>
+        <input type="password" id="repeatPassword" name="repeatNewPassword" minlength="8" maxlength="16"
+               class="form-control" placeholder="Repeat Password" required>
+
+        <div class="form-group pull-left">
+            <button class="btn btn-info" type="button" id="sendCode" onclick="getValidationCode(this)">
+                获取验证码
+            </button>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Reset</button>
+    </form>
+
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="mySmallModalLabel">提示！</h4>
+                </div>
+                <div class="modal-body" id="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/static/js/custom/resetpwd.js"></script>
+</body>
+</html>

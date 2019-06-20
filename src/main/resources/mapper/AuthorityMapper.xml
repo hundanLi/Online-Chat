@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.lzlbog.chatting.mapper.AuthorityMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="club.lzlbog.chatting.entity.Authority">
+        <id column="authority_id" property="authorityId" />
+        <result column="authority_name" property="authorityName" />
+    </resultMap>
+    <select id="selectAuthorityByRoles" resultType="club.lzlbog.chatting.entity.Authority">
+
+    </select>
+
+</mapper>
